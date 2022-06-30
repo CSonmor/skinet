@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 
 import { IBrand } from '../shared/models/brand';
 import { IPagination } from '../shared/models/pagination';
+import { IProduct } from '../shared/models/product';
 import { IType } from '../shared/models/product-type';
 import { ShopParams } from '../shared/models/shop-params';
 
@@ -29,6 +30,7 @@ export class ShopService {
     params = params.append('sort', shopParams.sort);
     params = params.append('pageIndex', shopParams.pageNumber.toString());
     params = params.append('pageSize', shopParams.pageSize);
+
     return this.http.get<IPagination>(this.baseUrl + 'products', {observe: 'response', params})
       .pipe(
         map(rsp => {
@@ -36,6 +38,10 @@ export class ShopService {
           return rsp.body;
         })
       );
+  }
+
+  getProduct(id: number) {
+    return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
   }
 
   getBrands() {

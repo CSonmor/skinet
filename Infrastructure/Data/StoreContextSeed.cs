@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Entities.OrderAggregate;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Data
@@ -44,8 +45,18 @@ namespace Infrastructure.Data
                    }
                    await context.SaveChangesAsync();
                }
-           } 
-           catch (Exception ex)
+                if (!context.DeliveryMethods.Any())
+                {
+                    var deliveryData = File.ReadAllText("../Infrastructure/Data/Seed Data/delivery.json");
+                    var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryData);
+                    foreach (var item in methods)
+                    {
+                        context.DeliveryMethods.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
            {
                var logger = loggerFactory.CreateLogger<StoreContextSeed>();
                logger.LogError(ex.Message);

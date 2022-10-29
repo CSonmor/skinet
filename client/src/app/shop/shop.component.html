@@ -7,7 +7,11 @@
           class="custom-select mb-3"
           (change)="onSortSelected($event.target.value)"
         >
-          <option *ngFor="let sort of sortOptions" [value]="sort.value">
+          <option
+            *ngFor="let sort of sortOptions"
+            [selected]="shopParams.sort === sort.value"
+            [value]="sort.value"
+          >
             {{ sort.name }}
           </option>
         </select>
@@ -46,7 +50,10 @@
           [pageSize]="shopParams.pageSize"
         ></app-paging-header>
 
-        <div class="row row-cols-md-auto g-3 align-items-center" *ngIf="products">
+        <div
+          class="row row-cols-md-auto g-3 align-items-center"
+          *ngIf="products"
+        >
           <div class="col-12">
             <label class="visually-hidden" for="inlineFormInputGroupSearch"
               >Search</label
@@ -85,6 +92,7 @@
         <app-pager
           [totalCount]="productCount"
           [pageSize]="shopParams.pageSize"
+          [pageNumber]="shopParams.pageNumber"
           (pageChanged)="onPageChanged($event)"
         ></app-pager>
       </div>

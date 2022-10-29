@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -18,31 +18,33 @@ import { StepperComponent } from './components/stepper/stepper.component';
 @NgModule({
   declarations: [
     BasketSummaryComponent,
+    OrderTotalsComponent,
     PagerComponent,
     PagingHeaderComponent,
-    OrderTotalsComponent,
     StepperComponent,
     TextInputComponent
   ],
   imports: [
+    BsDropdownModule.forRoot(),
+    CarouselModule.forRoot(),
     CdkStepperModule,
     CommonModule,
+    FormsModule,
     PaginationModule.forRoot(),
-    CarouselModule.forRoot(),
-    BsDropdownModule.forRoot(),
     ReactiveFormsModule,
     RouterModule
   ],
   exports: [
     BasketSummaryComponent,
+    BsDropdownModule,
     CdkStepperModule,
     CarouselModule,
-    PaginationModule,
+    FormsModule,
     OrderTotalsComponent,
     PagerComponent,
+    PaginationModule,
     PagingHeaderComponent,
     ReactiveFormsModule,
-    BsDropdownModule,
     StepperComponent,
     TextInputComponent
   ]
